@@ -126,7 +126,7 @@ fun afficherAjoutMagazine(): Magazine {
     println("Entrez le titre")
     val titre: String = readln()
     println("Entrez le numéro")
-    var numero: String = readln()
+    val numero: String = readln()
     var dateParution: String
     do {
         println("Entrez la date de parution")
