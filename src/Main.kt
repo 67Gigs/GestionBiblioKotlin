@@ -45,7 +45,7 @@ fun main() {
                 afficherListeBibliotheques(listeBibliotheque)
                 println("Entrez le numéro de la bibliothèque")
                 var choix = inputIntValidator(readln())
-                while (choix == -1) {
+                while (choix == -1 || choix >= listeBibliotheque.size) {
                     println("Choix invalide")
                     choix = inputIntValidator(readln())
                 }
@@ -96,7 +96,7 @@ fun main() {
                             bibliothequeChoisie.afficherMedias()
                             println("Entrez le numéro du média")
                             var choixMedia = inputIntValidator(readln())
-                            while (choixMedia == -1) {
+                            while (choixMedia == -1 || choixMedia >= bibliothequeChoisie.medias.size) {
                                 println("Choix invalide")
                                 choixMedia = inputIntValidator(readln())
                             }
@@ -106,17 +106,17 @@ fun main() {
                             bibliothequeChoisie.afficherEmprunts()
                             println("Entrez le numéro du média")
                             var choixMedia = inputIntValidator(readln())
-                            while (choixMedia == -1) {
+                            while (choixMedia == -1 || choixMedia >= bibliothequeChoisie.emprunts.size) {
                                 println("Choix invalide")
                                 choixMedia = inputIntValidator(readln())
                             }
-                            bibliothequeChoisie.retourner(bibliothequeChoisie.medias[choixMedia]) // Return a media item
+                            bibliothequeChoisie.retourner(bibliothequeChoisie.emprunts[choixMedia]) // Return a media item
                         }
                         5 -> {
                             bibliothequeChoisie.afficherMedias()
                             println("Entrez le numéro du média")
                             var choixMedia = inputIntValidator(readln())
-                            while (choixMedia == -1) {
+                            while (choixMedia == -1 || choixMedia >= bibliothequeChoisie.medias.size) {
                                 println("Choix invalide")
                                 choixMedia = inputIntValidator(readln())
                             }
@@ -133,7 +133,7 @@ fun main() {
                 afficherListeBibliotheques(listeBibliotheque)
                 println("Entrez le numéro de la bibliothèque")
                 var choix = inputIntValidator(readln())
-                while (choix == -1) {
+                while (choix == -1 || choix >= listeBibliotheque.size) {
                     println("Choix invalide")
                     choix = inputIntValidator(readln())
                 }
