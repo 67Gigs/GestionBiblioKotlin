@@ -1,32 +1,146 @@
 import classes.*
 import data.Bibliotheque
+import utils.*
 
 fun main() {
-    val bibliotheque = Bibliotheque()
+    var tmp: Int = 0
+
+    // Initialize a list to store libraries
+    val listeBibliotheque = mutableListOf<Bibliotheque>()
+
+    // Create a new library and add some media items to it
+    val bibliotheque = Bibliotheque("Bibliothèque de Montréal")
     val magazine = Magazine("National Geographic", "2024-10-28", "10")
     val journal = Journal("Le Monde", "2024-10-28")
     val enregistrementAudio = EnregistrementAudio("Beethoven - Symphonie No.9", 960, "Classical", "1967-01-01")
-    val dvd = DVD("Inception", 8880, "Action", "2010-01-01") /*2h 28m*/
+    val dvd = DVD("Inception", 8880, "Action", "2010-01-01") // 2h 28m
     val livre = Livre("1984", "George Orwell", "Gallimard", "1972-01-01")
 
+    // Add media items to the library
     bibliotheque.ajouterMedia(magazine)
     bibliotheque.ajouterMedia(journal)
     bibliotheque.ajouterMedia(enregistrementAudio)
     bibliotheque.ajouterMedia(dvd)
     bibliotheque.ajouterMedia(livre)
 
-    bibliotheque.emprunter(dvd)
-    bibliotheque.emprunter(livre)
+    // Add the library to the list of libraries
+    listeBibliotheque.add(bibliotheque)
 
-    bibliotheque.consulter(magazine)
-    bibliotheque.consulter(journal)
+    // Main loop to display the menu and handle user input
+    do {
+        afficherMenuPrincipal()
+        tmp = readlnOrNull()?.toInt() ?: 0 // Read user input
+        when (tmp) {
+            1 -> afficherListeBibliotheques(listeBibliotheque) // Display list of libraries
+            2 -> {
+                println("Entrez le nom de la bibliothèque")
+                val nom = readln()
+                listeBibliotheque.add(Bibliotheque(nom)) // Add a new library
+            }
+            3 -> {
+                afficherListeBibliotheques(listeBibliotheque)
+                println("Entrez le numéro de la bibliothèque")
+                val choix = readln().toInt()
+                val bibliothequeChoisie = listeBibliotheque[choix]
+                do {
+                    afficherBibliothequeCommande()
+                    tmp = readlnOrNull()?.toInt() ?: 0 // Read user input
+                    when (tmp) {
+                        1 -> bibliothequeChoisie.afficherMedias() // Display media items
+                        2 -> {
+                            afficherAjouterMenu()
+                            val ajoutChoix = readlnOrNull()?.toInt() ?: 0 // Read user input
+                            when (ajoutChoix) {
+                                1 -> {
+                                    val livre = afficherAjoutLivre()
+                                    bibliothequeChoisie.ajouterMedia(livre) // Add a book
+                                }
+                                2 -> {
+                                    val dvd = afficherAjoutDVD()
+                                    bibliothequeChoisie.ajouterMedia(dvd) // Add a DVD
+                                }
+                                3 -> {
+                                    val enregistrementAudio = afficherAjouterEnregistrement()
+                                    bibliothequeChoisie.ajouterMedia(enregistrementAudio) // Add an audio recording
+                                }
+                                4 -> {
+                                    val journal = afficherAJoutJournal()
+                                    bibliothequeChoisie.ajouterMedia(journal) // Add a journal
+                                }
+                                5 -> {
+                                    val magazine = afficherAjoutMagazine()
+                                    bibliothequeChoisie.ajouterMedia(magazine) // Add a magazine
+                                }
+                                9 -> tmp = 9 // Return to previous menu
+                                0 -> tmp = 0 // Quit
+                                else -> println("Choix invalide") // Invalid choice
+                            }
+                        }
+                        3 -> {
+                            bibliothequeChoisie.afficherMedias()
+                            println("Entrez le numéro du média")
+                            val choixMedia = readlnOrNull()?.toInt() ?: 0
+                            bibliothequeChoisie.emprunter(bibliothequeChoisie.medias[choixMedia]) // Borrow a media item
+                        }
+                        4 -> {
+                            bibliothequeChoisie.afficherEmprunts()
+                            println("Entrez le numéro du média")
+                            val choixMedia = readlnOrNull()?.toInt() ?: 0
+                            bibliothequeChoisie.retourner(bibliothequeChoisie.medias[choixMedia]) // Return a media item
+                        }
+                        5 -> {
+                            bibliothequeChoisie.afficherMedias()
+                            println("Entrez le numéro du média")
+                            val choixMedia = readlnOrNull()?.toInt() ?: 0
+                            bibliothequeChoisie.consulter(bibliothequeChoisie.medias[choixMedia]) // Consult a media item
+                        }
+                        6 -> bibliothequeChoisie.afficherEmprunts() // Display borrowed items
+                        9 -> tmp = 9 // Return to main menu
+                        0 -> tmp = 0 // Quit
+                        else -> println("Choix invalide") // Invalid choice
+                    }
+                } while (tmp != 9 && tmp != 0)
+            }
+            4 -> {
+                afficherListeBibliotheques(listeBibliotheque)
+                println("Entrez le numéro de la bibliothèque")
+                val choix = readlnOrNull()?.toInt() ?: 0
+                listeBibliotheque.removeAt(choix) // Remove a library
+            }
+            9 -> {
+                // Demonstrate basic functionality
+                val bibliothequeBase = Bibliotheque()
+                val magazineBase = Magazine("National Geographic", "2024-10-28", "10")
+                val journalBase = Journal("Le Monde", "2024-10-28")
+                val enregistrementAudioBase = EnregistrementAudio("Beethoven - Symphonie No.9", 960, "Classical", "1967-01-01")
+                val dvdBase = DVD("Inception", 8880, "Action", "2010-01-01") // 2h 28m
+                val livreBase = Livre("1984", "George Orwell", "Gallimard", "1972-01-01")
 
-    bibliotheque.emprunter(enregistrementAudio)
+                bibliothequeBase.ajouterMedia(magazineBase)
+                bibliothequeBase.ajouterMedia(journalBase)
+                bibliothequeBase.ajouterMedia(enregistrementAudioBase)
+                bibliothequeBase.ajouterMedia(dvdBase)
+                bibliothequeBase.ajouterMedia(livreBase)
 
-    bibliotheque.afficherEmprunts()
+                bibliothequeBase.emprunter(dvdBase)
+                bibliothequeBase.emprunter(livreBase)
 
-    bibliotheque.retourner(dvd)
-    bibliotheque.retourner(livre)
+                bibliothequeBase.consulter(magazineBase)
+                bibliothequeBase.consulter(journalBase)
 
-    bibliotheque.afficherEmprunts()
+                bibliothequeBase.emprunter(enregistrementAudioBase)
+
+                bibliothequeBase.afficherEmprunts()
+
+                bibliothequeBase.retourner(dvdBase)
+                bibliothequeBase.retourner(livreBase)
+
+                bibliothequeBase.afficherEmprunts()
+            }
+            0 -> tmp = 0 // Quit
+            else -> println("Choix invalide") // Invalid choice
+        }
+    } while (tmp != 0)
+
+    println("Au revoir!") // Goodbye message
 }

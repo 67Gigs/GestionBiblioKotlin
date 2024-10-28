@@ -5,7 +5,8 @@ import interfaces.Consultable
 import interfaces.Empruntable
 
 // Déclaration de la classe Bibliotheque
-class Bibliotheque {
+class Bibliotheque(var nom: String = "Bibliothèque") {
+
     // Liste des médias disponibles dans la bibliothèque
     val medias: MutableList<Media> = mutableListOf()
     // Liste des médias empruntés
@@ -35,6 +36,8 @@ class Bibliotheque {
                     // Emprunte le média et l'ajoute à la liste des emprunts
                     media.emprunter()
                     emprunts.add(media)
+                } else {
+                    println("Ce media n'est pas empruntable")
                 }
             } else {
                 println("Ce media n'est pas dans la bibliothèque")
@@ -83,6 +86,16 @@ class Bibliotheque {
         println("Emprunts en cours: ")
         // Parcourt la liste des emprunts et affiche chaque média
         emprunts.forEach {
+            it.afficher()
+            println()
+        }
+    }
+
+    // Afficher les médias de la bibliothèque
+    fun afficherMedias() {
+        println("Médias disponibles: ")
+        // Parcourt la liste des médias et affiche chaque média
+        medias.forEach {
             it.afficher()
             println()
         }
