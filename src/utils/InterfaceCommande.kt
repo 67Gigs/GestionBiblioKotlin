@@ -71,7 +71,11 @@ fun afficherAjoutDVD(): DVD {
     println("Entrez le titre")
     val titre: String = readln()
     println("Entrez la durée")
-    val duree: Int = readlnOrNull()?.toInt() ?: 0
+    var duree: Int = inputIntValidator(readln())
+    while(duree == -1) {
+        println("Entrez un nombre valide")
+        duree = inputIntValidator(readln())
+    }
     println("Entrez le genre")
     val genre: String = readln()
     var dateParution: String
@@ -88,7 +92,11 @@ fun afficherAjouterEnregistrement(): EnregistrementAudio {
     println("Entrez le titre")
     val titre: String = readln()
     println("Entrez la durée")
-    val duree: Int = readlnOrNull()?.toInt() ?: 0
+    var duree: Int = inputIntValidator(readln())
+    while(duree == -1) {
+        println("Entrez un nombre valide")
+        duree = inputIntValidator(readln())
+    }
     println("Entrez le genre")
     val genre: String = readln()
     var dateParution: String

@@ -29,7 +29,11 @@ fun main() {
     // Main loop to display the menu and handle user input
     do {
         afficherMenuPrincipal()
-        tmp = readlnOrNull()?.toInt() ?: 0 // Read user input
+        tmp = inputIntValidator(readln())
+        while (tmp == -1) {
+            println("Choix invalide")
+            tmp = inputIntValidator(readln())
+        }
         when (tmp) {
             1 -> afficherListeBibliotheques(listeBibliotheque) // Display list of libraries
             2 -> {
@@ -40,16 +44,28 @@ fun main() {
             3 -> {
                 afficherListeBibliotheques(listeBibliotheque)
                 println("Entrez le numéro de la bibliothèque")
-                val choix = readln().toInt()
+                var choix = inputIntValidator(readln())
+                while (choix == -1) {
+                    println("Choix invalide")
+                    choix = inputIntValidator(readln())
+                }
                 val bibliothequeChoisie = listeBibliotheque[choix]
                 do {
                     afficherBibliothequeCommande()
-                    tmp = readlnOrNull()?.toInt() ?: 0 // Read user input
+                    tmp = inputIntValidator(readln())
+                    while (tmp == -1) {
+                        println("Choix invalide")
+                        tmp = inputIntValidator(readln())
+                    }
                     when (tmp) {
                         1 -> bibliothequeChoisie.afficherMedias() // Display media items
                         2 -> {
                             afficherAjouterMenu()
-                            val ajoutChoix = readlnOrNull()?.toInt() ?: 0 // Read user input
+                            var ajoutChoix =  inputIntValidator(readln())
+                            while (ajoutChoix == -1) {
+                                println("Choix invalide")
+                                ajoutChoix = inputIntValidator(readln())
+                            }
                             when (ajoutChoix) {
                                 1 -> {
                                     val livre = afficherAjoutLivre()
@@ -79,19 +95,31 @@ fun main() {
                         3 -> {
                             bibliothequeChoisie.afficherMedias()
                             println("Entrez le numéro du média")
-                            val choixMedia = readlnOrNull()?.toInt() ?: 0
+                            var choixMedia = inputIntValidator(readln())
+                            while (choixMedia == -1) {
+                                println("Choix invalide")
+                                choixMedia = inputIntValidator(readln())
+                            }
                             bibliothequeChoisie.emprunter(bibliothequeChoisie.medias[choixMedia]) // Borrow a media item
                         }
                         4 -> {
                             bibliothequeChoisie.afficherEmprunts()
                             println("Entrez le numéro du média")
-                            val choixMedia = readlnOrNull()?.toInt() ?: 0
+                            var choixMedia = inputIntValidator(readln())
+                            while (choixMedia == -1) {
+                                println("Choix invalide")
+                                choixMedia = inputIntValidator(readln())
+                            }
                             bibliothequeChoisie.retourner(bibliothequeChoisie.medias[choixMedia]) // Return a media item
                         }
                         5 -> {
                             bibliothequeChoisie.afficherMedias()
                             println("Entrez le numéro du média")
-                            val choixMedia = readlnOrNull()?.toInt() ?: 0
+                            var choixMedia = inputIntValidator(readln())
+                            while (choixMedia == -1) {
+                                println("Choix invalide")
+                                choixMedia = inputIntValidator(readln())
+                            }
                             bibliothequeChoisie.consulter(bibliothequeChoisie.medias[choixMedia]) // Consult a media item
                         }
                         6 -> bibliothequeChoisie.afficherEmprunts() // Display borrowed items
@@ -104,7 +132,11 @@ fun main() {
             4 -> {
                 afficherListeBibliotheques(listeBibliotheque)
                 println("Entrez le numéro de la bibliothèque")
-                val choix = readlnOrNull()?.toInt() ?: 0
+                var choix = inputIntValidator(readln())
+                while (choix == -1) {
+                    println("Choix invalide")
+                    choix = inputIntValidator(readln())
+                }
                 listeBibliotheque.removeAt(choix) // Remove a library
             }
             9 -> {

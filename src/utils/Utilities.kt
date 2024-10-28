@@ -17,3 +17,11 @@ fun jourManquant(date: String): Boolean {
     val regex = """\d{4}-\d{2}""".toRegex()
     return regex.matches(date)
 }
+
+fun inputIntValidator(input: String): Int {
+    return try {
+        input.toInt()
+    } catch (e: NumberFormatException) {
+        -1
+    }
+}
